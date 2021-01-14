@@ -1,65 +1,43 @@
+const Discord = require('discord.js');
+
 module.exports = {
-  name: 'ban',
-  permissions: 'BAN_MEMBERS',
+    name: "ban",
+    description: "Kicks a member from the server",
 
-module.exports.execute = async (bot, message, args) => {
+    async run (client, message, args) {
 
-  //run: async (bot, message, args) => {
+        if(!message.member.hasPermission("BAN_MEMBERS")) return message.channel.send('You can\'t use that!')
+        if(!message.guild.me.hasPermission("BAN_MEMBERS")) return message.channel.send('I don\'t have the right permissions.')
 
-        if (!message.member.hasPermission(["BAN_MEMBERS", "ADMINISTRATOR"])) return message.channel.send("You do not have permission to perform this command!")
+        const member = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
 
-        const user1 = message.mentions.users.first();
-        var member = message.mentions.members.first()
+        if(!args[0]) return message.channel.send('Please specify a user');
 
-        if (member) {
+        if(!member) return message.channel.send('Can\'t seem to find this user. Sorry \'bout that :/');
+        if(!member.bannable) return message.channel.send('This user can\'t be banned. It is either because they are a mod/admin, or their highest role is higher than mine');
 
-            const member = message.mentions.members.first()
+        if(member.id === message.author.id) return message.channel.send('Bruh, you can\'t ban yourself!');
 
-            let reason = args.slice(2).join(' '); // arguments should already be defined
-            var user = message.mentions.users.first();
+        let reason = args.slice(1).join(" ");
 
-            member.ban({ reason: `${args.slice(2).join(' ')}` }).then(() => {
-                let uEmbed = new RichEmbed()
-                    .setTitle('**' + `Sucessfully Banned ${user1.tag}!` + '**')
-                    .setThumbnail('https://i.gyazo.com/8988806671312f358509cf0fd69341006.jpg')
-                    .setImage('https://media3.giphy.com/media/H99r2HtnYs492/giphy.gif?cid=ecf05e47db8ad81dd0dbb6b132bb551add0955f9b92ba021&rid=giphy.gif')
-                    .setColor(0x320b52)
-                    .setTimestamp()
-                    .setFooter('Requested by ' + message.author.tag, 'https://i.gyazo.com/8988806671312f358509cf0fd69341006.jpg')
-                message.channel.send(uEmbed);
+        if(!reason) reason = 'Unspecified';
 
-            }).catch(err => {
-                message.channel.send('I was unable to kick the member');
-                console.log(err);
-            });
-        } else {
-            let user = message.mentions.users.first(),
-                userID = user ? user.id : args[1]
+        member.ban(`${reason}`).catch(err => { 
+          message.channel.send('Something went wrong')
+            console.log(err)
+        })
 
-            if (isNaN(args[1])) return message.channel.send("You need to enter a vlaid @Member or UserID #");
+        const banembed = new Discord.MessageEmbed()
+        .setTitle('Member Banned')
+        .setThumbnail(member.user.displayAvatarURL())
+        .addField('User Banned', member)
+        .addField('Kicked by', message.author)
+        .addField('Reason', reason)
+        .setFooter('Time kicked', client.user.displayAvatarURL())
+        .setTimestamp()
 
-            if (args[1].length <= 17 || args[1].length >= 19) return message.channel.send("UserID # must be 18 Digits");
+        message.channel.send(banembed);
 
-            if (userID) {
-                let bannedIDs = require('./bannedIDs.json').ids || []
 
-                if (!bannedIDs.includes(userID)) bannedIDs.push(userID)
-
-                fs.writeFileSync('./bannedIDs.json', JSON.stringify({ ids: bannedIDs }))
-                let reason = args.slice(2).join(' ');
-                let uEmbed = new RichEmbed()
-                    .setTitle('**' + `UserID #${args[1]}\n Will be Banned on Return!` + '**')
-                    .setThumbnail('https://i.gyazo.com/8988806671312f358509cf0fd69341006.jpg')
-                    .setImage('https://i.imgur.com/6Sh8csf.gif')
-                    .setColor(0x320b52)
-                    .setTimestamp()
-                    .setFooter('Requested by ' + message.author.tag, 'https://i.gyazo.com/8988806671312f358509cf0fd69341006.jpg')
-                    message.channel.send(uEmbed);
-
-            } else {
-                message.channel.send('Error')
-            }
-        }
     }
-
 }

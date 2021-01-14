@@ -1,0 +1,20 @@
+module.exports = {
+	name: 'arg-test',
+	description: 'go Afk',
+	permissions: 'KICK_MEMBERS',
+  execute(message, args) {
+ 
+ // const user = getUserFromMention(args[0]);
+	 
+    
+    
+    message.reply('nobody cares');
+    console.log('someone went afk')
+    message.channel.send(`First argument: ${user}`);
+	},
+};
+
+//const user = getUserFromMention(args[0]);
+	if (!user) {
+		return message.reply('Please use a proper mention if you want to ban someone.');
+	}
