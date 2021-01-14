@@ -1,4 +1,4 @@
-= const express = require('express');
+const express = require('express');
 const app = express();
 const port = 3000;
 
@@ -22,7 +22,7 @@ for (const file of commandFiles) {
 	client.commands.set(command.name, command);
 }
 
-client.on('message',  message => {
+client.on('message',  async message => {
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
 
 	const args = message.content.slice(prefix.length).trim().split(/ +/);
@@ -46,6 +46,7 @@ client.on('message',  message => {
 
 	if (command.args && !args.length) {
 		let reply = `You didn't provide any arguments, ${message.author}!`;
+
 
 		if (command.usage) {
 			reply += `\nThe proper usage would be: \`${prefix}${command.name} ${command.usage}\``;
