@@ -1,15 +1,16 @@
-const express = require('express');
-const app = express();
-const port = 3000;
+//const express = require('express');
+//const app = express();
+//const port = 3000;
 
-app.get('/', (req, res) => res.send('Hello World!'));
+//app.get('/', (req, res) => res.send('Hello World!'));
 
-app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
+//app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
 
 // ================= START BOT CODE ===================
 const fs = require('fs');
 const Discord = require('discord.js');
 const { prefix, token } = require('./config.json');
+const { secret, key } = require('./secret.json');
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
@@ -83,7 +84,9 @@ client.on('message' , msg => {
 
 
 
+console.log('hi')
+client.login(key);
+
+//client.login(process.env.DISCORD_TOKEN);
 
 
-
-client.login(process.env.DISCORD_TOKEN);
