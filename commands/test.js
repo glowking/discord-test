@@ -1,5 +1,6 @@
 module.exports = {
-	name: 'afk',
+
+name: 'afk',
 	description: 'go Afk',
 	permissions: 'KICK_MEMBERS',
   execute(message, args) {

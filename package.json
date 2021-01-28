@@ -10,9 +10,21 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@discordjs/opus": "^0.4.0",
+    "array-move": "^3.0.1",
+    "discord-music-player": "^6.3.7",
     "discord.js": "^12.5.1",
     "express": "^4.17.1",
     "fd": "0.0.3",
-    "fs": "0.0.1-security"
+    "ffmpeg": "0.0.4",
+    "fs": "0.0.1-security",
+    "i18n": "^0.13.2",
+    "lyrics-finder": "^21.7.0",
+    "opusscript": "0.0.7",
+    "simple-youtube-api": "^5.2.1",
+    "soundcloud-downloader": "^0.2.4",
+    "string-progressbar": "^1.0.3",
+    "ytdl-core": "^4.4.5",
+    "ytdl-core-discord": "^1.2.5"
   }
 }
