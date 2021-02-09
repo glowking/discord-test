@@ -1,4 +1,4 @@
-const { LOCALE } = require("../util/music-backbone");
+const { LOCALE } = require("../util/botbackbone");
 const i18n = require("i18n");
 const fs = require("fs");
 

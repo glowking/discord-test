@@ -1,12 +1,12 @@
 const ytdl = require("ytdl-core-discord");
 const scdl = require("soundcloud-downloader").default;
-const { canModifyQueue, STAY_TIME, LOCALE } = require("../util/music-backbone");
+const { canModifyQueue, STAY_TIME, LOCALE } = require("../util/botbackbone");
 const i18n = require("i18n");
 i18n.setLocale(LOCALE);
 
 module.exports = {
   async play(song, message) {
-    const { SOUNDCLOUD_CLIENT_ID } = require("../util/music-backbone");
+    const { SOUNDCLOUD_CLIENT_ID } = require("../util/botbackbone");
 
     let config;
 

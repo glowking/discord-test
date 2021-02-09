@@ -1,4 +1,4 @@
-const { canModifyQueue, LOCALE } = require("../util/music-backbone");
+const { canModifyQueue, LOCALE } = require("../util/botbackbone");
 const i18n = require("i18n");
 i18n.setLocale(LOCALE);
 
