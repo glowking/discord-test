@@ -37,7 +37,7 @@ client.on("ready", () => {
 
   i18n.configure({
     locales: ["en"],
-    directory: path.join(__dirname, "locales"),
+    directory: path.join(__dirname, "../locales"),
     defaultLocale: "en",
     objectNotation: true,
     register: global,
